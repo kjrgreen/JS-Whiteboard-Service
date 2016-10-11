@@ -1,4 +1,5 @@
 var todoModel = require('../models/todo');
+var sanitizeHtml = require('sanitize-html');
 
 module.exports.getAll = function(req, res) {
   res.json(todoModel.getAll());
@@ -40,7 +41,22 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.add = function(req, res) {
-  var newTodo = req.body;
+
+  //Create object from body of request
+  var newPostit = {};
+  //Use this function to clean input of any html injection
+  san = function(input) {return sanitizeHtml(input, {allowedTags: [],
+allowedAttributes: []})};
+  newPostit.label = san(req.body.label);
+  newPostit.id = san(req.body.id);
+  newPostit.list = san(req.body.list);
+  newPostit.color = san(req.body.color);
+
   res.status(201);
-  res.send(req.body);
+  console.log('recieved:');
+  console.log(req.body);
+  res.contentType('text/html');
+  res.send(newPostit);
+  console.log("sanitized:");
+  console.log(newPostit);
 };

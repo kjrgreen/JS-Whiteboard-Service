@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var cors = require('./middleware/cors');
 var todoCtr = require('./controllers/routes/todo');
+var sanitizeHtml = require('sanitize-html');
 
 // buffer the sent json into req.body
 // before continue
