@@ -1,0 +1,5 @@
+What does the + sign do in generateId() in controllers/models/todo.js do?
+
+Should we post using forms or should we use some (react?) function for sending data to our node-based service?
+
+Gulp is only for building (i.e. minifying) CSS, javascript and other _WEB_ resources, not service-side things, right?

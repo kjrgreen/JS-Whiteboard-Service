@@ -1,0 +1,5 @@
+form object contains:
+id (if not new)
+label
+list (array of objects?)
+color
