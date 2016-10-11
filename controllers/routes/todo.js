@@ -1,5 +1,6 @@
 var todoModel = require('../models/todo');
 var sanitizeHtml = require('sanitize-html');
+var md5 = require("blueimp-md5");
 
 module.exports.getAll = function(req, res) {
   res.json(todoModel.getAll());
@@ -51,6 +52,18 @@ allowedAttributes: []})};
   newPostit.id = san(req.body.id);
   newPostit.list = san(req.body.list);
   newPostit.color = san(req.body.color);
+
+  if (newPostit.color === '')
+  {
+    res.status(500);
+    res.send('No color!');
+    return;
+  }
+
+  if (newPostit.id === '')
+  {
+    newPostit.id = md5(req.body.color+req.body.label+req.body.list)+(Date.now());  //Create MD5 hash of request and append timestamp; this should guarantee unique ID
+  }
 
   res.status(201);
   console.log('recieved:');
