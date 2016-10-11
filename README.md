@@ -5,8 +5,9 @@ Service/backend for a "whiteboard" web application, allowing multiple users to p
 Dependencies:
 	Node.js
 		Node.js modules:
-			*express
 			
-			*sanitize-html
+		*express
+		
+		*sanitize-html
 			
-			*blueimp-md5
+		*blueimp-md5
