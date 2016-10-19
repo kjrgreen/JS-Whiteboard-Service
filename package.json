@@ -9,8 +9,10 @@
   "author": "Tom Blackmore",
   "license": "MIT",
   "dependencies": {
+    "blueimp-md5": "^2.4.0",
     "body-parser": "^1.15.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "sanitize-html": "^1.13.0"
   },
   "devDependencies": {
     "body-parser": "^1.15.2",
