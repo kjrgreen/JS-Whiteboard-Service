@@ -23,7 +23,8 @@ module.exports.remove = function(req, res) {
 };
 
 module.exports.update = function(req, res) {
-  var updateTodo = req.body;
+  var updateTodo = sanitizePostit(req.body);
+  delete updateTodo.id;
   var id = req.params.id;
   if (todoModel.get(id)) {
     todoModel.remove(id);
@@ -46,12 +47,12 @@ module.exports.add = function(req, res) {
   //Create object from body of request
   var newPostit = {};
   //Use this function to clean input of any html injection
-  san = function(input) {return sanitizeHtml(input, {allowedTags: [],
-allowedAttributes: []})};
-  newPostit.label = san(req.body.label);
-  newPostit.id = san(req.body.id);
-  newPostit.list = san(req.body.list);
-  newPostit.color = san(req.body.color);
+  newPostit = sanitizePostit(req.body)
+
+  // simple sanitization for color
+  // var s = 'FF00FF<b>'
+  // s = s.replace(/#([a-fA-F0-9]{3}){1,2}\b/);
+  //console.log('Color validator :' + validator.isHexColor(req.body.color));
 
   if (newPostit.color === '')
   {
@@ -60,16 +61,36 @@ allowedAttributes: []})};
     return;
   }
 
-  if (newPostit.id === '')
+  itemid = newPostit.id;
+  delete newPostit.id;
+  if (req.label)
   {
-    newPostit.id = md5(req.body.color+req.body.label+req.body.list)+(Date.now());  //Create MD5 hash of request and append timestamp; this should guarantee unique ID
+    req.body=req;
   }
 
+//  if (typeof itemid === 'undefined' || !itemid)
+//  {
+    itemid = md5(req.body.colors+req.body.label+req.body.list)+(Date.now());  //Create MD5 hash of request and append timestamp; this should guarantee unique ID
+    //CURRENTLY WORKS WITH FORMS, NOT JSON
+//  }
+  console.log('itemid:' + itemid);
   res.status(201);
-  console.log('recieved:');
-  console.log(req.body);
+  // console.log('recieved:');
+  // console.log(req.body);
   res.contentType('text/html');
   res.send(newPostit);
-  console.log("sanitized:");
-  console.log(newPostit);
+  // console.log("sanitized:");
+  // console.log(newPostit);
+  todoModel.add(itemid, newPostit);
+};
+
+var sanitizePostit = function(req) {
+  var newPostit = {};
+  san = function(input) {return sanitizeHtml(input, {allowedTags: [],
+allowedAttributes: []})};
+  newPostit.label = san(req.label);
+  newPostit.id = san(req.id);
+  newPostit.list = san(req.list);
+  newPostit.color = san(req.colors);
+  return newPostit;
 };

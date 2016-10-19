@@ -12,11 +12,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cors);
 
-app.get('/todos', todoCtr.getAll);
-app.get('/todos/:id', todoCtr.get);
-app.delete('/todos/:id', todoCtr.remove);
-app.put('/todos/:id', todoCtr.update);
-app.post('/todos', todoCtr.add);
+app.get('/postits', todoCtr.getAll);
+app.get('/postits/:id', todoCtr.get);
+app.delete('/postits/:id', todoCtr.remove);
+app.put('/postits/:id', todoCtr.update);
+app.post('/postits', todoCtr.add);
 
 app.listen(8081);
 console.log('Todo webservice started on port 8081');

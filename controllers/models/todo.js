@@ -33,16 +33,14 @@ module.exports.add = function(id, item) {
 };
 
 module.exports.get = function(id) {
-  id = parseInt(id);
-  var item = items.filter(function(itemObj) {
+    var item = items.filter(function(itemObj) {
     return (itemObj.id === id);
   })[0];
   return item;
 };
 
 module.exports.remove = function(id) {
-  id = parseInt(id);
-  items = items.filter(function(itemObj) {
+    items = items.filter(function(itemObj) {
     return (itemObj.id !== id);
   });
   save();
