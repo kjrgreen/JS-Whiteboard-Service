@@ -19,4 +19,4 @@ app.put('/postits/:id', todoCtr.update);
 app.post('/postits', todoCtr.add);
 
 app.listen(8081);
-console.log('Todo webservice started on port 8081');
+console.log('Postit webservice started on port 8081');

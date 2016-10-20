@@ -78,7 +78,7 @@ module.exports.add = function(req, res) {
   // console.log('recieved:');
   // console.log(req.body);
   res.contentType('text/html');
-  res.send(newPostit);
+  res.send(itemid);
   // console.log("sanitized:");
   // console.log(newPostit);
   todoModel.add(itemid, newPostit);
